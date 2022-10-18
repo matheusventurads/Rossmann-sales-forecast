@@ -31,6 +31,9 @@ A base de dados é referente as vendas realizadas entre -----------------. As ve
 
 ## 2. Premissas de neǵocio
 * Os valores nulos em CompetitionDistance foram substituidos por a maior distância multiplicada por 3, pois estas observações provavelmente indicam lojas à uma distância muito alta, o que significa que não há competição.
+* Dias com valores de vendas zerado foram desconsiderados.
+* Dias onde as lojas estavam fechadas foram desconsiderados.
+* Os valores faltantes na coluna 'CompetitionOpenSince' e 'Promo2Since'foram definidos com os valores de ano e mês da coluna 'Date'.
 
 ## 3. Planejamento da solução
 O planejamento foi dividido em três etapas:
@@ -39,37 +42,37 @@ O planejamento foi dividido em três etapas:
 O resultado entregue será um aplicativo que apresente as previsões de vendas das próximas 6 semanas, facilitando e agilizando o acesso a informação.
 
 ### 3.2. Processo
-#### Entendendo o problema de negócio
+#### _Entendendo o problema de negócio_
 Entender a motivação para a previsão e assim planejar a solução mais efetiva.
 
-#### Coleta de dados
+#### _Coleta de dados_
 Coleta dos dados das lojas e vendas na plataforma [Kaggle](https://www.kaggle.com/competitions/rossmann-store-sales/data).
 
-#### Limpeza dos dados
+#### _Limpeza dos dados_
 Colunas renomeadas, tipo dos dados alterados e colunas com valores nulos preenchidas.
 
-#### Análise Exploratória de Dados (AED)
+#### _Análise Exploratória de Dados (AED)_
 Exploração dos dados para entendimento de negócio e descoberta de insights para auxílio na determinação de features no treinamento do modelo de machine learning.
 
-#### Feature Engineering
+#### _Feature Engineering_
 Criação de novas features derivadas das originais para o uso no modelo de machine learning.
 
-#### Preparação dos dados
+#### _Preparação dos dados_
 Aplicação de técnicas de normalização, rescaling e encoding dos dados, assim como transformação da variavél resposta.
 
-#### Feature Selection
+#### _Feature Selection_
 Seleção das features relevantes que serão utilizadas para treinamento do modelo através do algoritmo Boruta.
 
-### Machine Learning Modeling
+### _Machine Learning Modeling_
 Treinamento de algoritmos de Regressão com cross-validation em Time Series. O modelo selecionado foi aperfeiçõado com Hyperparameter fine tuning.
 
-#### Avaliação do Modelo
-  Avaliação do modelo treinado utilizando das seguintes técnincas: MAE, MAPE, RMSE e R².
+#### _Avaliação do Modelo_
+  Avaliação do modelo treinado utilizando das seguintes técnicas: MAE, MAPE, RMSE e R².
 
-#### Resultados Financeiros
+#### _Resultados Financeiros_
 Tradução do resultado para valores de negócio.
 
-#### Deploy do Modelo (Telegram Bot)
+#### _Deploy do Modelo (Telegram Bot)_
 Implementação da API para previsão de vendas através do aplicativo Telegram.
 
 ### Ferramentas
