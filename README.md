@@ -63,8 +63,8 @@ Aplicação de técnicas de normalização, rescaling e encoding dos dados, assi
 #### _Feature Selection_
 Seleção das features relevantes que serão utilizadas para treinamento do modelo através do algoritmo Boruta.
 
-### _Machine Learning Modeling_
-Treinamento de algoritmos de Regressão com cross-validation em Time Series. O modelo selecionado foi aperfeiçõado com Hyperparameter fine tuning.
+#### _Machine Learning Modeling_
+Treinamento de algoritmos de Regressão com cross-validation em Time Series. O modelo selecionado foi aperfeiçoado com Hyperparameter fine tuning.
 
 #### _Avaliação do Modelo_
   Avaliação do modelo treinado utilizando das seguintes técnicas: MAE, MAPE, RMSE e R².
@@ -83,7 +83,7 @@ Implementação da API para previsão de vendas através do aplicativo Telegram.
 * Boruta
 * Algoritmos de Regressão (Regressão Linear/Lasso, Random Forest, XGBoost/LGBM Regressors)
 * Cross-Validation, Hyperparameter Optimization
-* Métricas de Performance (RMSE, MAE, MAPE, R2)
+* Métricas de Performance (RMSE, MAE, MAPE)
 
 ## 4. Destaque dos Insights de negócio
 
@@ -92,7 +92,46 @@ Implementação da API para previsão de vendas através do aplicativo Telegram.
 Foram treinados 6 modelos de machine learning para previsão das vendas, com cross-validation:
 * Média (utilizado como Baseline)
 * Regressão Linear
-* Regressão Linear Regularizada
+* Regressão Linear Regularizada (Lasso)
 * Random Forest Regressor
 * XGBoost Regressor
-* Light GBM Regressor
+* LightGBM Regressor
+
+Abaixo estão as performances de cada modelo em ordem crescente:
+
+| Modelo | MAE | MAPE | RMSE |
+|--------|-----|------|------|
+| Random Forest Regressor| 732,62 +/- 120,76| 0,11 +/- 0,02| 1094,54 +/-183,61|
+|LightGBM Regressor| 932,66 +/- 84,96|0,13 +/- 0,01|1333,97 +/- 122,36|
+|XGBoost Regressor| 984,36 +/- 114,39|0,14 +/- 0,01|1425,7 +/- 179,24|
+| Média (Baseline) |1354,80| 0,2064| 1835,14|
+|Linear Regression| 1905,59 +/- 100,99|0,29 +/- 0,01| 2724,06 +/- 162,77|
+|Lasso Regression|1922,33 +/- 109,47| 0,29 +/- 0,1| 2745,56 +/- 195,84|
+
+Os modelos de Regressão Linear e Regressão Regularizada apresentaram performances inferiores ao modelo simples de Média, o que mostra que o comportamento dos dados não é linear, e conduz as análises para modelos mais complexos.
+
+Mesmo o modelo de Random Forest apresentando a melhor performance, o modelo escolhido para prosseguimento e otimização dos hiperparâmetros foi LightGBM. Pois consome muito menos tempo para treinamento e otimização que o primeiro, permitindo um estudo maior de diferentes configurações dos hiperparâmetros.
+
+Após a otimização dos hiperparâmetros do modelo, sua performance foi melhorada:
+
+|Modelo| MAE | MAPE | RMSE |
+|------|-----|------|------|
+| LGBM Regressor | 657,30852 | 0,096696 | 955,729333 |
+
+### Entendendo as métricas
+A raiz quadrada do erro médio (RSME) é ideal para medir performance do modelo mas não é a melhor para dizer a performance financeira.
+
+Já MAE (Erro Absoluto Médio) e MAPE (Erro Percentual Absoluto Médio) traduzem melhor os resultados em performance de negócio. Apresentam quanto o modelo erra na média e na média em porcentagem, respectivamente.
+
+## Resultado de Negócio
+Com os valores de MAE e MAPE podemos calcular o pior e melhor cenário de cada previsão.
+
+
+Considerando as predições de todas as loja nos três cenários, os valores de vendas nas próximas seis semanas são:
+
+| Cenário | Valores |
+|---------|---------|
+|Predição|€ 286.351.257,77|
+|Pior cenário|€ 285.614.249,52|
+|Melhor cenário|€ 287.088.266,02|
+
