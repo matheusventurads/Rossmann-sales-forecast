@@ -1,14 +1,14 @@
 # Rossmann Sales Forecast
 
 ## Conhecendo o negócio
-Rossmann é uma das maiores redes de drogarias da Europa, operando mais de 3.000 lojas em 7 países da Europa. Com o intuito de realizar investimentos em suas lojas os gerentes foram encarregados de prever o faturamento de vendas das próximas 6 semanas.
+Rossmann é uma das maiores redes de drogarias da Europa, operando mais de 3.000 lojas em 7 países da Europa. Com o intuito de realizar investimentos e melhorias em suas lojas os gerentes receberam do CEO a tarefa de prever o faturamento de vendas das próximas 6 semanas.
 
 ## 1. Questão de negócio
 Prever as vendas realizadas por todas as lojas nas próximas 6 semanas. Com milhares de gerentes individuamente realizando previsões baseadas em suas circunstâncias únicas, a acurácia pode variar consideravelmente.
 
 
 ### 1.1. Entendendo os dados
-A base de dados é referente as vendas realizadas entre -----------------. As vendas das lojas são influenciadas por diversos fatores, como promoções, localização de competidores e escolas, feriados e sazonalidade.
+A base de dados é referente as vendas realizadas entre 01/01/2013 e 31/07/2015 para 1115 lojas. As vendas das lojas são influenciadas por diversos fatores, como promoções, localização de competidores e escolas, feriados e sazonalidade.
 
 
 |Atributo| Definição|
@@ -67,7 +67,7 @@ Seleção das features relevantes que serão utilizadas para treinamento do mode
 Treinamento de algoritmos de Regressão com cross-validation em Time Series. O modelo selecionado foi aperfeiçoado com Hyperparameter fine tuning.
 
 #### _Avaliação do Modelo_
-  Avaliação do modelo treinado utilizando das seguintes técnicas: MAE, MAPE, RMSE e R².
+Avaliação do modelo treinado utilizando das seguintes técnicas: MAE, MAPE e RMSE.
 
 #### _Resultados Financeiros_
 Tradução do resultado para valores de negócio.
@@ -86,7 +86,14 @@ Implementação da API para previsão de vendas através do aplicativo Telegram.
 * Métricas de Performance (RMSE, MAE, MAPE)
 
 ## 4. Destaque dos Insights de negócio
+Na exploração de dados, foram levantadas diferentes hipóteses para melhor entendimento do comportamento de cada atributo.
+Dentre as hipóteses, os seguintes insights foram destacados.
 
+### Lojas com promoções consecutivas vendem menos.
+![Hipótese 6](./img/hyp6.png)
+
+### Lojas vendem mais ao longo dos anos.
+![Hipótese 8](./img/hyp8.png)
 
 ## 5. Modelos de Machine Learning
 Foram treinados 6 modelos de machine learning para previsão das vendas, com cross-validation:
@@ -123,9 +130,16 @@ A raiz quadrada do erro médio (RSME) é ideal para medir performance do modelo 
 
 Já MAE (Erro Absoluto Médio) e MAPE (Erro Percentual Absoluto Médio) traduzem melhor os resultados em performance de negócio. Apresentam quanto o modelo erra na média e na média em porcentagem, respectivamente.
 
-## Resultado de Negócio
+## 6. Resultado de Negócio
 Com os valores de MAE e MAPE podemos calcular o pior e melhor cenário de cada previsão.
 
+|Loja| Predição | Pior cenário | Melhor cenário | MAE | MAPE |
+|----|----------|---------|---------------------|-----|------|
+| 1 | 164.954,76 | 164.666,12 | 165.249,40 | 291,64| 0,066|
+|2|180.143,43|179.734,93|180.551,94|408,50|0,084|
+|3|258.013,06|257.424,94|258.601,18|588,12|0,082|
+|...|...|...|...|...|...|
+|1115|252.369,66|251.818,37|252.920,96|551,30|0,077|
 
 Considerando as predições de todas as loja nos três cenários, os valores de vendas nas próximas seis semanas são:
 
@@ -135,3 +149,19 @@ Considerando as predições de todas as loja nos três cenários, os valores de 
 |Pior cenário|€ 285.614.249,52|
 |Melhor cenário|€ 287.088.266,02|
 
+## 7. Deploy do Modelo
+Para facilitar o acesso, o modelo foi implantado no serviço em nuvem Heroku, com os resultados completos para cada loja, que pode ser consultado através do Telegram Bot.
+
+Para fazer a consulta, basta enviar uma mensagem no formato "/store_number" (ex: /50). O Bot responderá com o valor previsto para as próximas seis semanas, ou caso o número da loja não exista ou qualquer outro tipo de mensagem, apresentará a mensagem "Store not available".
+
+<p align="center">
+  <img src="./img/Rossmannbot.jpeg" width="200"/>
+</p>
+
+## 8. Conclusão
+O objetivo do projeto foi alcançado, como o modelo em produção realizando a previsão das vendas para todos os gerentes, permitindo ao CEO tomar decisões de melhorias com maiores precisões.
+
+## 9. Próximos passos
+* Aplicar ARIMA para predizer o total de clientes nas próximas semanas, que podem ser implementados ao modelo de previsão de vendas.
+* Aplicar outros modelos de regressão para análise de performance
+* Otimizar ainda mais o modelo por outros métodos (Bayesiana, GridSearch)
