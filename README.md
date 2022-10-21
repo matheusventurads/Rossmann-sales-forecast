@@ -1,5 +1,7 @@
 # Rossmann Sales Forecast
 
+![Rossmann](./img/Rossmann.jpg)
+
 ## Conhecendo o negócio
 Rossmann é uma das maiores redes de drogarias da Europa, operando mais de 3.000 lojas em 7 países da Europa. Com o intuito de realizar investimentos e melhorias em suas lojas os gerentes receberam do CEO a tarefa de prever o faturamento de vendas das próximas 6 semanas.
 
@@ -8,7 +10,7 @@ Prever as vendas realizadas por todas as lojas nas próximas 6 semanas. Com milh
 
 
 ### 1.1. Entendendo os dados
-A base de dados é referente as vendas realizadas entre 01/01/2013 e 31/07/2015 para 1115 lojas. As vendas das lojas são influenciadas por diversos fatores, como promoções, localização de competidores e escolas, feriados e sazonalidade.
+A base de dados é referente as vendas realizadas entre 01/01/2013 e 31/07/2015 para 1.115 lojas. As vendas das lojas são influenciadas por diversos fatores, como promoções, localização de competidores e escolas, feriados e sazonalidade.
 
 
 |Atributo| Definição|
@@ -25,15 +27,15 @@ A base de dados é referente as vendas realizadas entre 01/01/2013 e 31/07/2015 
 |CompetitionDistance| distância em metros da loja competidora mais próxima|
 |CompetitionOpenSince[Month/Year]| ano e mês aproximados da abertura do competidor mais próximo|
 |Promo| indica se a loja está aplicando uma promoção no dia|
-|Promo2| continuação contínua e consecutiva da promoção para algumas lojas: 0 = a loja não está participando, 1 = a loja está participando|
+|Promo2| continuação consecutiva da promoção para algumas lojas: 0 = a loja não está participando, 1 = a loja está participando|
 |Promo2Since[Year/Week]| descreve o ano e semana do calendário quando a loja começou a participar na Promo2|
-|PromoInterval| descreve os intervalos consecutivos de início, nomeando os meses que a promoção recomeça. Ex.: 'Feb,May,Aug,Nov' significa que cada rodada começa em Fevereiro, Maio, Augusto, Novembro de qualquer ano para a loja|
+|PromoInterval| descreve os intervalos consecutivos de início, nomeando os meses que a promoção recomeça. Ex.: 'Feb,May,Aug,Nov' significa que cada rodada começa em Fevereiro, Maio, Agosto, Novembro de qualquer ano para a loja|
 
 ## 2. Premissas de neǵocio
-* Os valores nulos em CompetitionDistance foram substituidos por a maior distância multiplicada por 3, pois estas observações provavelmente indicam lojas à uma distância muito alta, o que significa que não há competição.
+* Os valores nulos em 'CompetitionDistance' foram substituidos por a maior distância multiplicada por 3, pois estas observações provavelmente indicam lojas à uma distância muito alta, o que significa que não há competição.
 * Dias com valores de vendas zerado foram desconsiderados.
 * Dias onde as lojas estavam fechadas foram desconsiderados.
-* Os valores faltantes na coluna 'CompetitionOpenSince' e 'Promo2Since'foram definidos com os valores de ano e mês da coluna 'Date'.
+* Os valores faltantes na coluna 'CompetitionOpenSince' e 'Promo2Since' foram definidos com os valores de ano e mês da coluna 'Date'.
 
 ## 3. Planejamento da solução
 O planejamento foi dividido em três etapas:
@@ -159,9 +161,11 @@ Para fazer a consulta, basta enviar uma mensagem no formato "/store_number" (ex:
 </p>
 
 ## 8. Conclusão
-O objetivo do projeto foi alcançado, como o modelo em produção realizando a previsão das vendas para todos os gerentes, permitindo ao CEO tomar decisões de melhorias com maiores precisões.
+O objetivo do projeto foi alcançado, com o modelo em produção realizando a previsão das vendas para todos os gerentes, permitindo ao CEO tomar decisões de melhoria com maiores precisão.
 
 ## 9. Próximos passos
+* Formular novas hipóteses para buscar insights.
 * Aplicar ARIMA para predizer o total de clientes nas próximas semanas, que podem ser implementados ao modelo de previsão de vendas.
-* Aplicar outros modelos de regressão para análise de performance
-* Otimizar ainda mais o modelo por outros métodos (Bayesiana, GridSearch)
+* Aplicar outros modelos de regressão para análise de performance.
+* Otimizar ainda mais o modelo por outros métodos (Bayesiana, GridSearch).
+* Melhorar a experiência do usuário na interação com o Bot.
